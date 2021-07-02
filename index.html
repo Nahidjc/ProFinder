@@ -41,7 +41,7 @@
 
         .main {
             margin: 0 auto;
-            border-bottom: 2px solid rgb(235, 232, 232);
+
 
         }
 
@@ -60,9 +60,20 @@
         .repository {
             margin-top: 20px;
             padding: 20px;
-            background-color: white;
+            background-color: rgb(233, 230, 230);
             border-radius: 15px;
-            box-shadow: 2px 2px 2px 2px rgb(226, 223, 223);
+
+        }
+
+        span {
+            margin-right: 30px;
+        }
+
+        .language {
+            padding: 0px 8px;
+            border-radius: 50%;
+            margin-right: 5px !important;
+            background-color: tomato;
         }
     </style>
 </head>
@@ -97,9 +108,35 @@
 
     </div>
     <script>
+        function reposFunction(repos) {
+            fetch(repos)
+                .then(response => response.json())
+                .then(repo => {
+                    repoDisplay(repo)
+                })
+        }
+
+
+        function repoDisplay(repos) {
+            let output = "";
+            for (var i = 0; i < repos.length; i++) {
+                console.log(repos[i])
+                const reponame = repos[i].name;
+
+                output += `
+                <div id="repository" class="repository">
+                     <h5><a href="${repos[i].html_url}" target="_blank">${reponame}</a> </h5>   
+                       <span> <span class="language rounded-circle"></span> ${repos[i].language} </span>     <span>  <i class="far fa-star"></i> ${repos[i].stargazers_count} </span>    <span>    <i class="fas fa-code-branch"></i> ${repos[i].forks_count}</span> 
+                </div>
+                `
+
+            }
+            document.getElementById("Totalrepository").innerHTML = output;
+        }
+
         function showProfile(user) {
             const mainside = document.getElementById("main-portion");
-            console.log(user);
+            //  console.log(user);
             if (user.message == "Not Found") {
                 mainside.innerHTML = `
                 
@@ -110,22 +147,25 @@
             
                 <div class="row">
                     <div class="col-md-4">
-                        <img src=${user.avatar_url}><br><br>
+                        <img  class="rounded-circle" src=${user.avatar_url}><br><br>
                         <h3>${user.name}</h3>
                         <p>${user.login}</p>
                         <p>${user.bio}</p>
-                        <p>${user.location}</p>
+                        <p><span><i class="fas fa-user-friends"></i> ${user.followers} followers</span><span> ${user.following} following</span> <span><i class="far fa-star"></i></span>  </p>
+                        <p><i class="fas fa-map-marker-alt"></i> ${user.location}</p>
                     </div>
                     <div class="col-md-8">
                         <h3 class="text-center">Repositories</h3>
-                        <div class="repository">
-                            <h4>Repo name</h4>
+                        <div id="Totalrepository">
+                            
                         </div>
+                     
     
                     </div>
                 </div>
-                
+
                 `
+                reposFunction(user.repos_url);
             }
 
 
