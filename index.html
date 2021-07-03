@@ -82,9 +82,21 @@
             margin-right: 0px;
         }
 
+        .main-portion h1 {
+            margin-bottom: 0px;
+        }
+
         .repo-column {
             display: inline;
             overflow: hidden;
+        }
+
+        .profile-portion {
+            box-shadow: 0 0 2px;
+            height: auto;
+            padding: 15px;
+            border-radius: 15px;
+
         }
     </style>
 </head>
@@ -162,23 +174,29 @@
 
         function showProfile(user) {
             const mainside = document.getElementById("main-portion");
-            //  console.log(user);
+            console.log(user);
             if (user.message == "Not Found") {
                 mainside.innerHTML = `
                 
                 <h1 class="text-center mt-5" style="font-size:100px;padding:100px">Not Found</h1>
+
+                <h3 class="text-center text-danger mt-0">Please enter a Valid Username</h3>
                 `
             } else {
                 mainside.innerHTML = `
             
                 <div class="row">
                     <div class="col-md-4">
-                        <img  class="rounded-circle" src=${user.avatar_url}><br><br>
-                        <h3>${user.name}</h3>
-                        <p>${user.login}</p>
-                        <p>${user.bio}</p>
-                        <p><span><i class="fas fa-user-friends"></i> ${user.followers} followers</span><span> ${user.following} following</span> <span><i class="far fa-star"></i></span>  </p>
-                        <p><i class="fas fa-map-marker-alt"></i> ${user.location}</p>
+                        <div class="profile-portion">
+                            <img  class="rounded-circle" src=${user.avatar_url}><br><br>
+                            <h3>${user.name}</h3>
+                            <p>${user.login}</p>
+                            <p>${user.bio}</p>
+                            <p><span><i class="fas fa-user-friends"></i> ${user.followers} followers</span><span> ${user.following} following</span> <span><i class="far fa-star"></i></span>  </p>
+                            <p><i class="fas fa-map-marker-alt"></i> ${user.location}</p>
+                          
+                        </div>
+                      
                     </div>
                     <div class="col-md-8">
                         <h3 class="text-center">Repositories</h3>
