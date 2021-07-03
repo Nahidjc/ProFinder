@@ -69,11 +69,17 @@
             margin-right: 30px;
         }
 
-        .language {
-            padding: 0px 8px;
+
+
+        .repo-language-color {
+            border: 1px solid var(--color-repo-language-color-border);
             border-radius: 50%;
-            margin-right: 5px !important;
-            background-color: tomato;
+            display: inline-block;
+            height: 12px;
+            position: relative;
+            top: 1px;
+            width: 12px;
+            margin-right: 0px;
         }
     </style>
 </head>
@@ -125,8 +131,14 @@
 
                 output += `
                 <div id="repository" class="repository">
-                     <h5><a href="${repos[i].html_url}" target="_blank">${reponame}</a> </h5>   
-                       <span> <span class="language rounded-circle"></span> ${repos[i].language} </span>     <span>  <i class="far fa-star"></i> ${repos[i].stargazers_count} </span>    <span>    <i class="fas fa-code-branch"></i> ${repos[i].forks_count}</span> 
+                     <h5><a href="${repos[i].html_url}" target="_blank">${reponame}</a> </h5>  
+                     
+                     <span class="ml-0 mr-3">
+                        <span class="repo-language-color" style="background-color: #4F5D95"></span>
+                        <span itemprop="programmingLanguage">${repos[i].language}</span>
+                        <span>  <i class="far fa-star"></i> ${repos[i].stargazers_count} </span>    <span>    <i class="fas fa-code-branch"></i> ${repos[i].forks_count}</span> 
+                      </span>
+                     </span>    
                 </div>
                 `
 
